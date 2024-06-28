@@ -14,7 +14,29 @@ spec:
     spec:
       containers:
       - name: goserver
-        image: pliniopba/hello-go:v5
+        image: pliniopba/hello-go:v6
+        startupProbe:
+            httpGet:
+              path: /healthz
+              port: 80
+            periodSeconds: 3
+            failureThreshold: 10
+        readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 80
+            failureThreshold: 1
+            periodSeconds: 3
+#            initialDelaySeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          periodSeconds: 5
+          failureThreshold: 1
+          timeoutSeconds: 1
+          successThreshold: 1
+#         initialDelaySeconds: 10
         envFrom:
           - configMapRef:
               name: goserver-env

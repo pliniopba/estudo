@@ -6,13 +6,13 @@ import (
 	"log"
 	"net/http"
 	"os"
-	//"time"
+	"time"
 )
 
-//var startedAt = time.Now()
+var startedAt = time.Now()
 
 func main() {
-	//http.HandleFunc("/healthz", Healthz)
+	http.HandleFunc("/healthz", Healthz)
 	http.HandleFunc("/secret", Secret)
 	http.HandleFunc("/configmap", ConfigMap)
 	http.HandleFunc("/", Hello)
@@ -39,7 +39,7 @@ func Secret(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "User: %s \nPassword: %s", user, password)
 }
 
-/*
+
 func Healthz(w http.ResponseWriter, r *http.Request) {
 
 	duration := time.Since(startedAt)
@@ -52,4 +52,4 @@ func Healthz(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("ok"))
 	}
 
-}*/
+}
