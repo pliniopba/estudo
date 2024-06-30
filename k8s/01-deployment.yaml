@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: goserver
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: goserver
@@ -15,6 +15,13 @@ spec:
       containers:
       - name: goserver
         image: pliniopba/hello-go:v6
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "64Mi"
+          limits:
+            cpu: "300m"
+            memory: "128Mi"
         startupProbe:
             httpGet:
               path: /healthz
